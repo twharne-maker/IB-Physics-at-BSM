@@ -1,0 +1,626 @@
+[
+  {
+    "id": "BSM-A1-001",
+    "theme": "A",
+    "topic": "A.1",
+    "paper": "1A",
+    "difficulty": 1,
+    "level": "SL",
+    "section": "Displacement",
+    "kind": "calculation",
+    "stem": "A student walks 300 m east and then 400 m north. What is the magnitude of the displacement from the starting point?",
+    "options": [
+      "100 m",
+      "350 m",
+      "500 m",
+      "700 m"
+    ],
+    "answer": 2,
+    "explanation": "The displacement is the straight-line vector from the start: √(300² + 400²) = 500 m.",
+    "distractor_notes": {
+      "A": "Subtracts path lengths",
+      "D": "Adds distances instead of vectors"
+    },
+    "diagram": null,
+    "reviewStatus": "Draft 2 - teacher approval required",
+    "revision": "Reviewed against teacher annotations; not official IB question"
+  },
+  {
+    "id": "BSM-A1-002",
+    "theme": "A",
+    "topic": "A.1",
+    "paper": "1A",
+    "difficulty": 1,
+    "level": "SL",
+    "section": "Distance and displacement",
+    "kind": "conceptual",
+    "stem": "A runner completes three laps of a circular track of circumference 200 m and finishes at the starting point. Which row correctly gives the total distance travelled and the magnitude of the final displacement?",
+    "options": [
+      "600 m; 0 m",
+      "200 m; 0 m",
+      "600 m; 600 m",
+      "0 m; 600 m"
+    ],
+    "answer": 0,
+    "explanation": "Distance is the path length, 3 × 200 = 600 m. The start and finish coincide, so displacement is zero.",
+    "distractor_notes": {},
+    "diagram": null,
+    "reviewStatus": "Draft 2 - teacher approval required",
+    "optionTable": {
+      "headers": [
+        "Total distance travelled",
+        "Magnitude of final displacement"
+      ],
+      "rows": [
+        [
+          "600 m",
+          "0 m"
+        ],
+        [
+          "200 m",
+          "0 m"
+        ],
+        [
+          "600 m",
+          "600 m"
+        ],
+        [
+          "0 m",
+          "600 m"
+        ]
+      ]
+    },
+    "revision": "Reviewed against teacher annotations; not official IB question"
+  },
+  {
+    "id": "BSM-A1-003",
+    "theme": "A",
+    "topic": "A.1",
+    "paper": "1A",
+    "difficulty": 2,
+    "level": "SL",
+    "section": "Velocity–time graph",
+    "kind": "graph",
+    "stem": "A vehicle has the velocity–time graph shown. What is its displacement during the six-second interval?",
+    "options": [
+      "18 m",
+      "24 m",
+      "30 m",
+      "36 m"
+    ],
+    "answer": 2,
+    "explanation": "Area under the v–t graph: triangle (½ × 2 × 6) = 6 m and rectangle (4 × 6) = 24 m, giving 30 m.",
+    "distractor_notes": {
+      "B": "Misses triangle or counts only rectangle",
+      "D": "Uses final velocity for all six seconds"
+    },
+    "diagram": "diagrams/a1_q03_vt.png",
+    "reviewStatus": "Draft 2 - teacher approval required",
+    "revision": "Reviewed against teacher annotations; not official IB question"
+  },
+  {
+    "id": "BSM-A1-004",
+    "theme": "A",
+    "topic": "A.1",
+    "paper": "1A",
+    "difficulty": 2,
+    "level": "SL",
+    "section": "Displacement–time graph",
+    "kind": "graph",
+    "stem": "A toy car moves along a straight track. Its displacement–time graph is shown. What is its velocity between 4 s and 7 s?",
+    "options": [
+      "−3.0 m s⁻¹",
+      "−1.0 m s⁻¹",
+      "0 m s⁻¹",
+      "+3.0 m s⁻¹"
+    ],
+    "answer": 0,
+    "explanation": "The gradient is (0 − 9)/(7 − 4) = −3.0 m s⁻¹. The negative sign shows motion towards the origin.",
+    "distractor_notes": {
+      "D": "Reports speed, not signed velocity"
+    },
+    "diagram": "diagrams/a1_q04_st.png",
+    "reviewStatus": "Draft 2 - teacher approval required",
+    "revision": "Reviewed against teacher annotations; not official IB question"
+  },
+  {
+    "id": "BSM-A1-005",
+    "theme": "A",
+    "topic": "A.1",
+    "paper": "1A",
+    "difficulty": 1,
+    "level": "SL",
+    "section": "Acceleration",
+    "kind": "calculation",
+    "stem": "The velocity of a trolley changes from −4.0 m s⁻¹ to +8.0 m s⁻¹ in 3.0 s. What is its average acceleration?",
+    "options": [
+      "1.3 m s⁻²",
+      "4.0 m s⁻²",
+      "−4.0 m s⁻²",
+      "12 m s⁻²"
+    ],
+    "answer": 1,
+    "explanation": "a = Δv/Δt = [8 − (−4)]/3 = 4.0 m s⁻².",
+    "distractor_notes": {
+      "A": "Subtracts magnitudes instead of signed velocities",
+      "D": "Omits division by time"
+    },
+    "diagram": null,
+    "reviewStatus": "Draft 2 - teacher approval required",
+    "revision": "Reviewed against teacher annotations; not official IB question"
+  },
+  {
+    "id": "BSM-A1-006",
+    "theme": "A",
+    "topic": "A.1",
+    "paper": "1A",
+    "difficulty": 2,
+    "level": "SL",
+    "section": "Uniform acceleration",
+    "kind": "calculation",
+    "stem": "A trolley has an initial velocity of 3.0 m s⁻¹ and accelerates uniformly at 2.0 m s⁻² in the same direction. What distance does it travel during the fourth second of motion?",
+    "options": [
+      "7.0 m",
+      "9.0 m",
+      "10 m",
+      "28 m"
+    ],
+    "answer": 2,
+    "explanation": "The fourth second is from t = 3 to 4 s. s(4) − s(3) = [3(4)+½(2)(4²)] − [3(3)+½(2)(3²)] = 28 − 18 = 10 m.",
+    "distractor_notes": {
+      "D": "Uses total distance after 4 seconds"
+    },
+    "diagram": null,
+    "reviewStatus": "Draft 2 - teacher approval required",
+    "revision": "Reviewed against teacher annotations; not official IB question"
+  },
+  {
+    "id": "BSM-A1-007",
+    "theme": "A",
+    "topic": "A.1",
+    "paper": "1A",
+    "difficulty": 2,
+    "level": "SL",
+    "section": "Stopping distance",
+    "kind": "calculation",
+    "stem": "A car travels at 18 m s⁻¹. It then decelerates uniformly at 3.0 m s⁻² until it stops. What distance does it travel while decelerating?",
+    "options": [
+      "6.0 m",
+      "27 m",
+      "54 m",
+      "108 m"
+    ],
+    "answer": 2,
+    "explanation": "v² = u² + 2as: 0 = 18² − 6s, so s = 54 m.",
+    "distractor_notes": {
+      "A": "Calculates stopping time",
+      "D": "Omits factor of 2"
+    },
+    "diagram": null,
+    "reviewStatus": "Draft 2 - teacher approval required",
+    "revision": "Reviewed against teacher annotations; not official IB question"
+  },
+  {
+    "id": "BSM-A1-008",
+    "theme": "A",
+    "topic": "A.1",
+    "paper": "1A",
+    "difficulty": 3,
+    "level": "SL",
+    "section": "Velocity–time graph",
+    "kind": "graph",
+    "stem": "A moving object has the velocity–time graph shown. What are its total distance travelled and its final displacement after 8.0 s?",
+    "options": [
+      "16 m; 8 m",
+      "24 m; 8 m",
+      "24 m; 16 m",
+      "8 m; 24 m"
+    ],
+    "answer": 1,
+    "explanation": "Positive area: ½ × 4 × 8 = 16 m. Negative area: ½ × 4 × 4 = 8 m. Distance = 16 + 8 = 24 m; displacement = 16 − 8 = 8 m.",
+    "distractor_notes": {
+      "C": "Confuses displacement with positive area"
+    },
+    "diagram": "diagrams/a1_q08_vt.png",
+    "reviewStatus": "Draft 2 - teacher approval required",
+    "revision": "Reviewed against teacher annotations; not official IB question"
+  },
+  {
+    "id": "BSM-A1-009",
+    "theme": "A",
+    "topic": "A.1",
+    "paper": "1A",
+    "difficulty": 1,
+    "level": "SL",
+    "section": "Vertical motion",
+    "kind": "conceptual",
+    "stem": "A ball is thrown vertically upward. Air resistance is negligible. At the highest point of its flight, which statement is correct?",
+    "options": [
+      "Velocity and acceleration are both zero",
+      "Velocity is zero and acceleration is downward",
+      "Velocity is upward and acceleration is zero",
+      "Velocity is zero and acceleration is upward"
+    ],
+    "answer": 1,
+    "explanation": "At the highest point v = 0 momentarily but a = −g throughout the flight, including the highest point.",
+    "distractor_notes": {},
+    "diagram": null,
+    "reviewStatus": "Draft 2 - teacher approval required",
+    "revision": "Reviewed against teacher annotations; not official IB question"
+  },
+  {
+    "id": "BSM-A1-010",
+    "theme": "A",
+    "topic": "A.1",
+    "paper": "1A",
+    "difficulty": 2,
+    "level": "SL",
+    "section": "Vertical motion",
+    "kind": "calculation",
+    "stem": "A ball is projected vertically upwards at 20.0 m s⁻¹. Air resistance is negligible. What is its velocity 3.0 s after launch, taking upwards as positive?",
+    "options": [
+      "+9.4 m s⁻¹",
+      "−9.4 m s⁻¹",
+      "−29.4 m s⁻¹",
+      "+49.4 m s⁻¹"
+    ],
+    "answer": 1,
+    "explanation": "v = u − gt = 20.0 − 9.8(3.0) = −9.4 m s⁻¹. It is falling at this instant.",
+    "distractor_notes": {},
+    "diagram": null,
+    "reviewStatus": "Draft 2 - teacher approval required",
+    "revision": "Reviewed against teacher annotations; not official IB question"
+  },
+  {
+    "id": "BSM-A1-011",
+    "theme": "A",
+    "topic": "A.1",
+    "paper": "1A",
+    "difficulty": 2,
+    "level": "SL",
+    "section": "Vertical motion",
+    "kind": "calculation",
+    "stem": "A stone is thrown vertically upwards at 14 m s⁻¹. Neglect air resistance. What is its maximum height above its launch point?",
+    "options": [
+      "7.0 m",
+      "10 m",
+      "14 m",
+      "20 m"
+    ],
+    "answer": 1,
+    "explanation": "At the highest point v = 0. Use 0 = 14² − 2(9.8)h, giving h = 10 m.",
+    "distractor_notes": {
+      "D": "Ignores the factor of 2"
+    },
+    "diagram": null,
+    "reviewStatus": "Draft 2 - teacher approval required",
+    "revision": "Reviewed against teacher annotations; not official IB question"
+  },
+  {
+    "id": "BSM-A1-012",
+    "theme": "A",
+    "topic": "A.1",
+    "paper": "1A",
+    "difficulty": 2,
+    "level": "SL",
+    "section": "Projectile motion",
+    "kind": "calculation",
+    "stem": "A small ball leaves a level table horizontally at 5.0 m s⁻¹. The table is 19.6 m high. Neglect air resistance. What horizontal distance does the ball travel before landing?",
+    "options": [
+      "5.0 m",
+      "7.1 m",
+      "10 m",
+      "20 m"
+    ],
+    "answer": 2,
+    "explanation": "Vertical motion gives 19.6 = ½(9.8)t², hence t = 2.0 s. Horizontal distance = 5.0 × 2.0 = 10 m.",
+    "distractor_notes": {},
+    "diagram": null,
+    "reviewStatus": "Draft 2 - teacher approval required",
+    "revision": "Reviewed against teacher annotations; not official IB question"
+  },
+  {
+    "id": "BSM-A1-013",
+    "theme": "A",
+    "topic": "A.1",
+    "paper": "1A",
+    "difficulty": 1,
+    "level": "SL",
+    "section": "Projectile motion",
+    "kind": "conceptual",
+    "stem": "A ball is launched at speed u at 60° above the horizontal. Air resistance is negligible. What is its speed at the highest point?",
+    "options": [
+      "0",
+      "u/2",
+      "(√3/2)u",
+      "u"
+    ],
+    "answer": 1,
+    "explanation": "The vertical velocity is zero at the top, but the horizontal component remains u cos 60° = u/2.",
+    "distractor_notes": {},
+    "diagram": "diagrams/a1_q13_projectile.png",
+    "reviewStatus": "Draft 2 - teacher approval required",
+    "diagramAlt": "Projectile launched with speed u at 60 degrees above the horizontal; a curved trajectory and initial velocity vector are shown.",
+    "revision": "Reviewed against teacher annotations; not official IB question"
+  },
+  {
+    "id": "BSM-A1-014",
+    "theme": "A",
+    "topic": "A.1",
+    "paper": "1A",
+    "difficulty": 3,
+    "level": "SL",
+    "section": "Projectile motion",
+    "kind": "reasoning",
+    "stem": "Two projectiles are launched from level ground with the same speed but at angles of 25° and 65° above the horizontal. Air resistance is negligible. Which statement is correct?",
+    "options": [
+      "Their maximum heights are equal",
+      "Their times of flight are equal",
+      "Their horizontal ranges are equal",
+      "Their horizontal velocities are equal"
+    ],
+    "answer": 2,
+    "explanation": "For launch and landing at the same level, R = u² sin(2θ)/g. sin 50° = sin 130°, so the ranges are equal. Their heights and times differ.",
+    "distractor_notes": {},
+    "diagram": null,
+    "reviewStatus": "Draft 2 - teacher approval required",
+    "revision": "Reviewed against teacher annotations; not official IB question"
+  },
+  {
+    "id": "BSM-A1-015",
+    "theme": "A",
+    "topic": "A.1",
+    "paper": "1A",
+    "difficulty": 2,
+    "level": "SL",
+    "section": "Relative motion",
+    "kind": "calculation",
+    "stem": "A boat travels at 4.0 m s⁻¹ due east relative to water. A river flows at 3.0 m s⁻¹ due north relative to the bank. What is the magnitude of the boat’s velocity relative to the bank?",
+    "options": [
+      "1.0 m s⁻¹",
+      "3.5 m s⁻¹",
+      "5.0 m s⁻¹",
+      "7.0 m s⁻¹"
+    ],
+    "answer": 2,
+    "explanation": "The velocity components are perpendicular: √(4.0² + 3.0²) = 5.0 m s⁻¹.",
+    "distractor_notes": {},
+    "diagram": null,
+    "reviewStatus": "Draft 2 - teacher approval required",
+    "revision": "Reviewed against teacher annotations; not official IB question"
+  },
+  {
+    "id": "BSM-A1-016",
+    "theme": "A",
+    "topic": "A.1",
+    "paper": "1A",
+    "difficulty": 2,
+    "level": "SL",
+    "section": "Relative motion",
+    "kind": "calculation",
+    "stem": "Two cyclists travel in the same direction along a straight road at constant speeds of 12 m s⁻¹ and 8.0 m s⁻¹. At time t = 0, the faster cyclist is 100 m behind the slower cyclist. At what time does the faster cyclist pass the slower cyclist?",
+    "options": [
+      "5.0 s",
+      "12.5 s",
+      "25 s",
+      "50 s"
+    ],
+    "answer": 2,
+    "explanation": "The closing speed is 12 − 8 = 4.0 m s⁻¹, so t = 100/4 = 25 s.",
+    "distractor_notes": {},
+    "diagram": null,
+    "reviewStatus": "Draft 2 - teacher approval required",
+    "revision": "Reviewed against teacher annotations; not official IB question"
+  },
+  {
+    "id": "BSM-A1-017",
+    "theme": "A",
+    "topic": "A.1",
+    "paper": "1A",
+    "difficulty": 2,
+    "level": "SL",
+    "section": "Forces and drag",
+    "kind": "reasoning",
+    "stem": "A skydiver is falling vertically and speeding up, but the magnitude of the acceleration is decreasing. Which statement best explains this?",
+    "options": [
+      "Their weight decreases as their speed increases",
+      "Air resistance increases, reducing the resultant downward force",
+      "Air resistance becomes greater than their weight",
+      "The gravitational field strength increases as they fall"
+    ],
+    "answer": 1,
+    "explanation": "Weight is approximately constant, but drag increases with speed. The downward resultant force becomes smaller until terminal speed is reached.",
+    "distractor_notes": {},
+    "diagram": null,
+    "reviewStatus": "Draft 2 - teacher approval required",
+    "revision": "Reviewed against teacher annotations; not official IB question"
+  },
+  {
+    "id": "BSM-A1-018",
+    "theme": "A",
+    "topic": "A.1",
+    "paper": "1A",
+    "difficulty": 3,
+    "level": "SL",
+    "section": "Projectile motion and drag",
+    "kind": "reasoning",
+    "stem": "A projectile is moving to the right at the highest point of its trajectory while experiencing air resistance. Which direction is its acceleration at that instant?",
+    "options": [
+      "Vertically downwards",
+      "Horizontally to the left",
+      "Downwards and to the left",
+      "Downwards and to the right"
+    ],
+    "answer": 2,
+    "explanation": "Gravity acts downward. Drag opposes the instantaneous rightward velocity, so drag acts left. Their vector sum points down and left.",
+    "distractor_notes": {},
+    "diagram": null,
+    "reviewStatus": "Draft 2 - teacher approval required",
+    "revision": "Reviewed against teacher annotations; not official IB question"
+  },
+  {
+    "id": "BSM-A1-019",
+    "theme": "A",
+    "topic": "A.1",
+    "paper": "1A",
+    "difficulty": 3,
+    "level": "SL",
+    "section": "Graphs and changing velocity",
+    "kind": "graph",
+    "stem": "A particle has the velocity–time graph shown. Which statement is correct about its motion between 2 s and 6 s?",
+    "options": [
+      "The acceleration is constant and positive",
+      "The velocity decreases while the acceleration remains negative",
+      "Both velocity and acceleration are negative throughout",
+      "The particle is at rest throughout"
+    ],
+    "answer": 1,
+    "explanation": "The velocity falls from +8 to 0 m s⁻¹ in a straight line, so its acceleration is the constant negative gradient −2 m s⁻². It is still moving in the positive direction until 6 s.",
+    "distractor_notes": {},
+    "diagram": "diagrams/a1_q19_vt.png",
+    "reviewStatus": "Draft 2 - teacher approval required",
+    "revision": "Reviewed against teacher annotations; not official IB question"
+  },
+  {
+    "id": "BSM-A1-020",
+    "theme": "A",
+    "topic": "A.1",
+    "paper": "1A",
+    "difficulty": 3,
+    "level": "SL",
+    "section": "Displacement graph",
+    "kind": "graph",
+    "stem": "The displacement–time graph for a particle is shown. At which labelled point is the magnitude of its instantaneous velocity greatest?",
+    "options": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": 2,
+    "explanation": "The magnitude of instantaneous velocity is the magnitude of the tangent gradient on a displacement–time graph. The curve is steepest at C; at A and D it is horizontal and at B it is much less steep.",
+    "distractor_notes": {},
+    "diagram": "diagrams/a1_q20_st.png",
+    "reviewStatus": "Draft 2 - teacher approval required",
+    "revision": "Reviewed against teacher annotations; not official IB question"
+  },
+  {
+    "id": "BSM-A1-021",
+    "theme": "A",
+    "topic": "A.1",
+    "paper": "1A",
+    "difficulty": 2,
+    "level": "SL",
+    "section": "Projectile independence",
+    "kind": "reasoning",
+    "stem": "Two identical balls start from the same height at the same instant. One is released from rest; the other is projected horizontally. Neglect air resistance. Which statement is correct?",
+    "options": [
+      "The dropped ball reaches the ground first",
+      "The projected ball reaches the ground first",
+      "Both reach the ground at the same time",
+      "Both strike the ground with the same speed"
+    ],
+    "answer": 2,
+    "explanation": "Both have identical vertical initial velocities (zero) and acceleration g, so their times of fall are the same. Their impact speeds differ because one also has horizontal velocity.",
+    "distractor_notes": {},
+    "diagram": null,
+    "reviewStatus": "Draft 2 - teacher approval required",
+    "revision": "Reviewed against teacher annotations; not official IB question"
+  },
+  {
+    "id": "BSM-A1-022",
+    "theme": "A",
+    "topic": "A.1",
+    "paper": "1A",
+    "difficulty": 3,
+    "level": "SL",
+    "section": "Meeting objects",
+    "kind": "reasoning",
+    "stem": "At t = 0, one ball is released from rest at a height of 45 m above the ground. At the same instant, a second ball is projected vertically upwards from the ground at 15 m s⁻¹. Air resistance is negligible. At what time do the balls pass each other?",
+    "options": [
+      "1.5 s",
+      "3.0 s",
+      "4.5 s",
+      "6.0 s"
+    ],
+    "answer": 1,
+    "explanation": "Using heights above ground: y_top = 45 − ½gt² and y_bottom = 15t − ½gt². Equal heights give 45 = 15t, so t = 3.0 s. Equal gravitational acceleration cancels.",
+    "distractor_notes": {},
+    "diagram": null,
+    "reviewStatus": "Draft 2 - teacher approval required",
+    "revision": "Reviewed against teacher annotations; not official IB question"
+  },
+  {
+    "id": "BSM-A1-023",
+    "theme": "A",
+    "topic": "A.1",
+    "paper": "1A",
+    "difficulty": 3,
+    "level": "SL",
+    "section": "Relative motion",
+    "kind": "calculation",
+    "stem": "Rain falls vertically at 12 m s⁻¹ relative to the ground. A car moves horizontally at 5.0 m s⁻¹. What is the speed of the rain relative to the car?",
+    "options": [
+      "7.0 m s⁻¹",
+      "12 m s⁻¹",
+      "13 m s⁻¹",
+      "17 m s⁻¹"
+    ],
+    "answer": 2,
+    "explanation": "Relative velocity has components 12 m s⁻¹ vertically and 5.0 m s⁻¹ horizontally. Magnitude = √(12² + 5²) = 13 m s⁻¹.",
+    "distractor_notes": {},
+    "diagram": null,
+    "reviewStatus": "Draft 2 - teacher approval required",
+    "revision": "Reviewed against teacher annotations; not official IB question"
+  },
+  {
+    "id": "BSM-A1-024",
+    "theme": "A",
+    "topic": "A.1",
+    "paper": "1A",
+    "difficulty": 3,
+    "level": "SL",
+    "section": "Displacement and distance",
+    "kind": "graph",
+    "stem": "A particle moves in a straight line with the velocity–time graph shown. What is the ratio of the total distance travelled to the magnitude of the displacement from t = 0 to t = 6.0 s?",
+    "options": [
+      "1",
+      "4/3",
+      "5/3",
+      "5/2"
+    ],
+    "answer": 2,
+    "explanation": "Area above the time axis = ½ × 4 × 6 = 12 m; area below = ½ × 2 × 3 = 3 m. Total distance = 12 + 3 = 15 m. Magnitude of displacement = |12 − 3| = 9 m. Ratio = 15/9 = 5/3 (option C).",
+    "distractor_notes": {
+      "A": "Treats distance and displacement as identical despite reversal",
+      "B": "Subtracts an incorrect area or confuses numerator and denominator",
+      "D": "Uses an incorrect magnitude for one of the signed areas"
+    },
+    "diagram": "diagrams/a1_q24_vt.png",
+    "reviewStatus": "Draft 2 - teacher approval required",
+    "revision": "Reviewed against teacher annotations; not official IB question"
+  },
+  {
+    "id": "BSM-A1-025",
+    "theme": "A",
+    "topic": "A.1",
+    "paper": "1A",
+    "difficulty": 3,
+    "level": "SL",
+    "section": "Projectile velocity",
+    "kind": "calculation",
+    "stem": "A ball is projected horizontally at 8.0 m s⁻¹ from a cliff. When it reaches the ground its vertical velocity component is 15 m s⁻¹ downwards. Neglect air resistance. What is the magnitude of its velocity on impact?",
+    "options": [
+      "7.0 m s⁻¹",
+      "15 m s⁻¹",
+      "17 m s⁻¹",
+      "23 m s⁻¹"
+    ],
+    "answer": 2,
+    "explanation": "Horizontal speed stays 8.0 m s⁻¹. The impact speed is √(8² + 15²) = 17 m s⁻¹.",
+    "distractor_notes": {},
+    "diagram": null,
+    "reviewStatus": "Draft 2 - teacher approval required",
+    "revision": "Reviewed against teacher annotations; not official IB question"
+  }
+]
