@@ -2,7 +2,7 @@
 
 // Keep the original A.1 key so existing browser progress is not lost.
 const STORAGE_KEY = "bsm_a1_trial_v2";
-const DATA_FILES = ["a1.json", "a2.json", "a3.json", "a4.json", "a5.json", "b1.json", "b2.json", "b3.json", "b4.json", "b5.json"];
+const DATA_FILES = ["a1.json", "a2.json", "a3.json", "a4.json", "a5.json", "b1.json", "b2.json", "b3.json", "b4.json", "b5.json", "c1.json"];
 const el = id => document.getElementById(id);
 let questions = [];
 let currentId = null;
@@ -185,7 +185,7 @@ async function init() {
     const ids = questions.map(q => q.id);
     if (new Set(ids).size !== ids.length) throw new Error("Duplicate question identifiers found");
     for (const q of questions) {
-      if (!q.id || !["A.1","A.2","A.3","A.4","A.5","B.1","B.2","B.3","B.4","B.5"].includes(q.topic) || !Array.isArray(q.options) || q.options.length !== 4 || !Number.isInteger(q.answer) || q.answer < 0 || q.answer > 3) {
+      if (!q.id || !["A.1","A.2","A.3","A.4","A.5","B.1","B.2","B.3","B.4","B.5","C.1"].includes(q.topic) || !Array.isArray(q.options) || q.options.length !== 4 || !Number.isInteger(q.answer) || q.answer < 0 || q.answer > 3) {
         throw new Error(`Invalid question data: ${q.id || "unknown"}`);
       }
     }
@@ -212,7 +212,7 @@ async function init() {
     updateSections();
     show();
   } catch (error) {
-    el("loading").textContent = `Could not load the question bank. Check that all ten topic JSON files (a1–a5 and b1–b5) are uploaded alongside index.html. Details: ${error.message}`;
+    el("loading").textContent = `Could not load the question bank. Check that all eleven topic JSON files (a1–a5, b1–b5 and c1) are uploaded alongside index.html. Details: ${error.message}`;
     console.error(error);
   }
 }
