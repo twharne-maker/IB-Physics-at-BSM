@@ -1,9 +1,8 @@
-Physics at BSM | A.2 Forces and momentum | Draft 2
+Physics at BSM — A.4 Rigid body mechanics Draft 1.
 
-25 new original teacher-audit questions. NOT published/approved.
+Contains 25 original higher-level IB-style practice questions, teacher-reviewed only after your next audit.
 
-Compatibility: a2.json follows the Draft 2 a1.json schema. ID prefix BSM-A2-; answer is zero-based index 0-3; diagram is a relative path under diagrams/.
-
-The existing trial quiz loads a1.json explicitly. To make a combined bank after approval, adapt the app to load both a1.json and a2.json, or combine records in the expected application format; this ZIP is question DATA, not a replacement app.js.
-
-Question paper and teacher review included separately. Avoid publishing before teacher audit.
+This package is for review, NOT publication.
+a4.json matches existing a1.json/a2.json/a3.json schema (flat array of 25 objects).
+Image paths are relative: diagrams/a4_*.png.
+After approval: add a4.json and diagrams via a GitHub pull request and update DATA_FILES in app.js plus the topic selector in index.html.
