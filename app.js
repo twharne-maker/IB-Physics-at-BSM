@@ -1,16 +1,215 @@
 "use strict";
-const STORAGE_KEY="bsm_a1_trial_v2";
-let questions=[],currentId=null,progress={};
-const el=id=>document.getElementById(id);
-function safe(s){return String(s??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[ch]));}
-function loadProgress(){try{const p=JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}");return p&&typeof p==="object"?p:{}}catch{return {}}}
-function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(progress))}catch{}}
-function filtered(){return questions.filter(q=>(el("section").value==="all"||q.section===el("section").value)&&(el("difficulty").value==="all"||String(q.difficulty)===el("difficulty").value)&&(el("mode").value==="all"||(el("mode").value==="unanswered"&&!Number.isInteger(progress[q.id]?.choice))||(el("mode").value==="incorrect"&&progress[q.id]?.choice!==undefined&&progress[q.id].choice!==q.answer)||(el("mode").value==="starred"&&progress[q.id]?.starred)))}
-function updateStats(){const attempted=questions.filter(q=>Number.isInteger(progress[q.id]?.choice)).length,correct=questions.filter(q=>progress[q.id]?.choice===q.answer).length;el("attempted").textContent=attempted;el("correct").textContent=correct;el("accuracy").textContent=attempted?Math.round(100*correct/attempted)+"%":"—";el("progressBar").style.width=(100*attempted/questions.length)+"%";el("completion").textContent=`${attempted} of ${questions.length}`}
-function optionText(q,i){if(q.optionTable&&q.optionTable[i])return `<span>${safe(q.options[i])}</span>`;return `<span>${safe(q.options[i])}</span>`}
-function show(){updateStats();const arr=filtered();el("loading").classList.add("hidden");el("quiz").classList.toggle("hidden",!arr.length);el("empty").classList.toggle("hidden",!!arr.length);if(!arr.length)return;if(!arr.some(q=>q.id===currentId))currentId=arr[0].id;const idx=arr.findIndex(q=>q.id===currentId),q=arr[idx],saved=progress[q.id]||{},answered=Number.isInteger(saved.choice);el("questionId").textContent=q.id+" · "+q.section;el("difficultyTag").textContent=["","Foundation","Application","Exam challenge"][q.difficulty];el("position").textContent=`Question ${idx+1} of ${arr.length}`;el("bookmark").textContent=saved.starred?"★ Bookmarked":"☆ Save for review";el("bookmark").classList.toggle("active",!!saved.starred);el("stem").textContent=q.stem;const diag=el("diagram");diag.replaceChildren();diag.classList.toggle("hidden",!q.diagram);if(q.diagram){const img=document.createElement("img");img.src=q.diagram;img.alt=q.diagramAlt||"Diagram accompanying question";diag.append(img)}
-const options=el("options");options.replaceChildren();if(q.optionTable){const t=document.createElement("table");t.className="option-table";const th=document.createElement("tr");for(const h of ["Option",...q.optionTable.headers||[]]){const cell=document.createElement("th");cell.textContent=h;th.append(cell)}t.append(th);q.optionTable.rows?.forEach((row,i)=>{const tr=document.createElement("tr");for(const val of [String.fromCharCode(65+i),...row]){const td=document.createElement("td");td.textContent=val;tr.append(td)}t.append(tr)});options.before(t);el("quiz").querySelectorAll(".option-table").forEach((old,i)=>{if(old!==t)old.remove()});}else{el("quiz").querySelectorAll(".option-table").forEach(old=>old.remove())}
-q.options.forEach((label,i)=>{const b=document.createElement("button");b.type="button";b.className="option";if(answered&&i===q.answer)b.classList.add("correct");if(answered&&i===saved.choice&&saved.choice!==q.answer)b.classList.add("wrong");b.disabled=answered;const tag=document.createElement("span");tag.className="letter";tag.textContent=String.fromCharCode(65+i);const txt=document.createElement("span");txt.textContent=label;b.append(tag,txt);b.addEventListener("click",()=>{progress[q.id]={...progress[q.id],choice:i,at:new Date().toISOString()};save();show()});options.append(b)});const fb=el("feedback");fb.classList.toggle("hidden",!answered);fb.classList.toggle("wrong",answered&&saved.choice!==q.answer);if(answered){fb.replaceChildren();const b=document.createElement("b");b.textContent=saved.choice===q.answer?"Correct — well done.":`Not quite. Correct answer: ${String.fromCharCode(65+q.answer)}.`;const p=document.createElement("div");p.textContent=q.explanation;fb.append(b,p)}el("previous").disabled=idx===0;el("next").disabled=idx===arr.length-1;}
-function navigate(delta){const arr=filtered(),idx=arr.findIndex(q=>q.id===currentId),next=arr[idx+delta];if(next){currentId=next.id;show();el("quiz").scrollIntoView({block:"start",behavior:"smooth"})}}
-async function init(){progress=loadProgress();try{const res=await fetch("a1.json",{cache:"no-store"});if(!res.ok)throw Error(`HTTP ${res.status}`);questions=await res.json();if(!Array.isArray(questions)||!questions.length)throw Error("No questions");const sections=[...new Set(questions.map(q=>q.section))];for(const s of sections){const o=document.createElement("option");o.value=s;o.textContent=s;el("section").append(o)}for(const id of ["section","difficulty","mode"])el(id).addEventListener("change",()=>{currentId=null;show()});el("previous").addEventListener("click",()=>navigate(-1));el("next").addEventListener("click",()=>navigate(1));el("bookmark").addEventListener("click",()=>{const p=progress[currentId]||{};progress[currentId]={...p,starred:!p.starred};save();show()});el("reset").addEventListener("click",()=>{if(confirm("Clear all saved answers and bookmarks on this browser?")){progress={};save();currentId=null;show()}});show()}catch(e){el("loading").textContent="Could not load a1.json. Open this quiz through a web server (not directly as a file), and keep a1.json in the same folder as index.html. Details: "+e.message}}
+
+// Keep the original A.1 key so existing browser progress is not lost.
+const STORAGE_KEY = "bsm_a1_trial_v2";
+const DATA_FILES = ["a1.json", "a2.json"];
+const el = id => document.getElementById(id);
+let questions = [];
+let currentId = null;
+let progress = {};
+
+function loadProgress() {
+  try {
+    const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+    return data && typeof data === "object" && !Array.isArray(data) ? data : {};
+  } catch { return {}; }
+}
+function save() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(progress)); }
+  catch (error) { console.warn("Progress could not be saved", error); }
+}
+function inTopic(q) {
+  return el("topic").value === "all" || q.topic === el("topic").value;
+}
+function topicQuestions() { return questions.filter(inTopic); }
+function filtered() {
+  const section = el("section").value;
+  const difficulty = el("difficulty").value;
+  const mode = el("mode").value;
+  return topicQuestions().filter(q => {
+    const p = progress[q.id] || {};
+    if (section !== "all" && q.section !== section) return false;
+    if (difficulty !== "all" && String(q.difficulty) !== difficulty) return false;
+    if (mode === "unanswered" && Number.isInteger(p.choice)) return false;
+    if (mode === "incorrect" && (!Number.isInteger(p.choice) || p.choice === q.answer)) return false;
+    if (mode === "starred" && !p.starred) return false;
+    return true;
+  });
+}
+function updateSections() {
+  const selector = el("section");
+  const previous = selector.value;
+  selector.replaceChildren();
+  const all = document.createElement("option");
+  all.value = "all"; all.textContent = "All sections";
+  selector.append(all);
+  const sections = [...new Set(topicQuestions().map(q => q.section))].sort((a,b) => a.localeCompare(b));
+  for (const section of sections) {
+    const option = document.createElement("option");
+    option.value = section; option.textContent = section;
+    selector.append(option);
+  }
+  selector.value = sections.includes(previous) ? previous : "all";
+}
+function updateStats() {
+  const scope = topicQuestions();
+  const attempted = scope.filter(q => Number.isInteger(progress[q.id]?.choice)).length;
+  const correct = scope.filter(q => progress[q.id]?.choice === q.answer).length;
+  el("attempted").textContent = attempted;
+  el("correct").textContent = correct;
+  el("accuracy").textContent = attempted ? `${Math.round(100 * correct / attempted)}%` : "—";
+  el("progressBar").style.width = `${scope.length ? 100 * attempted / scope.length : 0}%`;
+  el("completion").textContent = `${attempted} of ${scope.length}`;
+  el("reset").textContent = el("topic").value === "all" ? "Clear all trial progress" : "Clear progress for selected topic";
+}
+function showOptionTable(q) {
+  el("quiz").querySelectorAll(".option-table").forEach(table => table.remove());
+  if (!q.optionTable) return;
+  const table = document.createElement("table");
+  table.className = "option-table";
+  const head = document.createElement("tr");
+  for (const label of ["Option", ...q.optionTable.headers]) {
+    const cell = document.createElement("th");
+    cell.scope = "col"; cell.textContent = label; head.append(cell);
+  }
+  table.append(head);
+  (q.optionTable.rows || []).forEach((row, index) => {
+    const tr = document.createElement("tr");
+    for (const item of [String.fromCharCode(65 + index), ...row]) {
+      const td = document.createElement("td"); td.textContent = item; tr.append(td);
+    }
+    table.append(tr);
+  });
+  el("options").before(table);
+}
+function show() {
+  updateStats();
+  const arr = filtered();
+  el("loading").classList.add("hidden");
+  el("quiz").classList.toggle("hidden", arr.length === 0);
+  el("empty").classList.toggle("hidden", arr.length > 0);
+  if (arr.length === 0) return;
+  if (!arr.some(q => q.id === currentId)) currentId = arr[0].id;
+  const index = arr.findIndex(q => q.id === currentId);
+  const q = arr[index];
+  const saved = progress[q.id] || {};
+  const answered = Number.isInteger(saved.choice);
+  el("questionId").textContent = `${q.id} · ${q.section}`;
+  el("difficultyTag").textContent = ["", "Foundation", "Application", "Exam challenge"][q.difficulty] || `Level ${q.difficulty}`;
+  el("position").textContent = `Question ${index + 1} of ${arr.length}`;
+  el("bookmark").textContent = saved.starred ? "★ Bookmarked" : "☆ Save for review";
+  el("bookmark").classList.toggle("active", !!saved.starred);
+  el("stem").textContent = q.stem;
+
+  const figure = el("diagram");
+  figure.replaceChildren();
+  figure.classList.toggle("hidden", !q.diagram);
+  if (q.diagram) {
+    const image = document.createElement("img");
+    image.src = q.diagram;
+    image.alt = q.diagramAlt || "Diagram accompanying this question";
+    image.loading = "lazy";
+    image.addEventListener("error", () => {
+      const warning = document.createElement("p");
+      warning.textContent = `Diagram unavailable: ${q.diagram}. Check that the file is in the diagrams folder.`;
+      warning.className = "muted";
+      figure.append(warning);
+    });
+    figure.append(image);
+  }
+  showOptionTable(q);
+
+  const options = el("options");
+  options.replaceChildren();
+  q.options.forEach((label, choice) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "option";
+    button.disabled = answered;
+    if (answered && choice === q.answer) button.classList.add("correct");
+    if (answered && choice === saved.choice && choice !== q.answer) button.classList.add("wrong");
+    const letter = document.createElement("span");
+    letter.className = "letter";
+    letter.textContent = String.fromCharCode(65 + choice);
+    const labelSpan = document.createElement("span");
+    labelSpan.textContent = label;
+    button.append(letter, labelSpan);
+    button.addEventListener("click", () => {
+      progress[q.id] = {...progress[q.id], choice, at: new Date().toISOString()};
+      save(); show();
+    });
+    options.append(button);
+  });
+
+  const feedback = el("feedback");
+  feedback.classList.toggle("hidden", !answered);
+  feedback.classList.toggle("wrong", answered && saved.choice !== q.answer);
+  feedback.replaceChildren();
+  if (answered) {
+    const heading = document.createElement("b");
+    heading.textContent = saved.choice === q.answer
+      ? "Correct — well done."
+      : `Not quite. Correct answer: ${String.fromCharCode(65 + q.answer)}.`;
+    const explanation = document.createElement("div");
+    explanation.textContent = q.explanation;
+    feedback.append(heading, explanation);
+  }
+  el("previous").disabled = index === 0;
+  el("next").disabled = index === arr.length - 1;
+}
+function navigate(delta) {
+  const arr = filtered();
+  const index = arr.findIndex(q => q.id === currentId);
+  const target = arr[index + delta];
+  if (target) {
+    currentId = target.id;
+    show();
+    el("quiz").scrollIntoView({block: "start", behavior: "smooth"});
+  }
+}
+async function init() {
+  progress = loadProgress();
+  try {
+    const responses = await Promise.all(DATA_FILES.map(async file => {
+      const res = await fetch(file, {cache: "no-store"});
+      if (!res.ok) throw new Error(`${file}: HTTP ${res.status}`);
+      const data = await res.json();
+      if (!Array.isArray(data) || !data.length) throw new Error(`${file} does not contain a question list`);
+      return data;
+    }));
+    questions = responses.flat();
+    const ids = questions.map(q => q.id);
+    if (new Set(ids).size !== ids.length) throw new Error("Duplicate question identifiers found");
+    for (const q of questions) {
+      if (!q.id || !["A.1","A.2"].includes(q.topic) || !Array.isArray(q.options) || q.options.length !== 4 || !Number.isInteger(q.answer) || q.answer < 0 || q.answer > 3) {
+        throw new Error(`Invalid question data: ${q.id || "unknown"}`);
+      }
+    }
+    el("topic").addEventListener("change", () => {
+      updateSections(); currentId = null; show();
+    });
+    for (const id of ["section", "difficulty", "mode"]) {
+      el(id).addEventListener("change", () => {currentId = null; show();});
+    }
+    el("previous").addEventListener("click", () => navigate(-1));
+    el("next").addEventListener("click", () => navigate(1));
+    el("bookmark").addEventListener("click", () => {
+      const p = progress[currentId] || {};
+      progress[currentId] = {...p, starred: !p.starred};
+      save(); show();
+    });
+    el("reset").addEventListener("click", () => {
+      const scope = topicQuestions();
+      const label = el("topic").value === "all" ? "all 50 questions" : el("topic").value;
+      if (!confirm(`Clear answers and bookmarks for ${label} saved on this browser?`)) return;
+      for (const q of scope) delete progress[q.id];
+      save(); currentId = null; show();
+    });
+    updateSections();
+    show();
+  } catch (error) {
+    el("loading").textContent = `Could not load the question bank. Check that both a1.json and a2.json are uploaded alongside index.html. Details: ${error.message}`;
+    console.error(error);
+  }
+}
 init();
