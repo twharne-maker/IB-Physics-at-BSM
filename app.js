@@ -2,7 +2,7 @@
 
 // Keep the original A.1 key so existing browser progress is not lost.
 const STORAGE_KEY = "bsm_a1_trial_v2";
-const DATA_FILES = ["a1.json", "a2.json"];
+const DATA_FILES = ["a1.json", "a2.json", "a3.json"];
 const el = id => document.getElementById(id);
 let questions = [];
 let currentId = null;
@@ -131,9 +131,13 @@ function show() {
     const letter = document.createElement("span");
     letter.className = "letter";
     letter.textContent = String.fromCharCode(65 + choice);
-    const labelSpan = document.createElement("span");
-    labelSpan.textContent = label;
-    button.append(letter, labelSpan);
+    button.append(letter);
+    // Graph-choice questions already label their diagrams A–D.
+    if (String(label).trim() !== String.fromCharCode(65 + choice)) {
+      const labelSpan = document.createElement("span");
+      labelSpan.textContent = label;
+      button.append(labelSpan);
+    }
     button.addEventListener("click", () => {
       progress[q.id] = {...progress[q.id], choice, at: new Date().toISOString()};
       save(); show();
@@ -181,7 +185,7 @@ async function init() {
     const ids = questions.map(q => q.id);
     if (new Set(ids).size !== ids.length) throw new Error("Duplicate question identifiers found");
     for (const q of questions) {
-      if (!q.id || !["A.1","A.2"].includes(q.topic) || !Array.isArray(q.options) || q.options.length !== 4 || !Number.isInteger(q.answer) || q.answer < 0 || q.answer > 3) {
+      if (!q.id || !["A.1","A.2","A.3"].includes(q.topic) || !Array.isArray(q.options) || q.options.length !== 4 || !Number.isInteger(q.answer) || q.answer < 0 || q.answer > 3) {
         throw new Error(`Invalid question data: ${q.id || "unknown"}`);
       }
     }
@@ -200,7 +204,7 @@ async function init() {
     });
     el("reset").addEventListener("click", () => {
       const scope = topicQuestions();
-      const label = el("topic").value === "all" ? "all 50 questions" : el("topic").value;
+      const label = el("topic").value === "all" ? `all ${questions.length} questions` : el("topic").value;
       if (!confirm(`Clear answers and bookmarks for ${label} saved on this browser?`)) return;
       for (const q of scope) delete progress[q.id];
       save(); currentId = null; show();
@@ -208,7 +212,7 @@ async function init() {
     updateSections();
     show();
   } catch (error) {
-    el("loading").textContent = `Could not load the question bank. Check that both a1.json and a2.json are uploaded alongside index.html. Details: ${error.message}`;
+    el("loading").textContent = `Could not load the question bank. Check that a1.json, a2.json and a3.json are uploaded alongside index.html. Details: ${error.message}`;
     console.error(error);
   }
 }
