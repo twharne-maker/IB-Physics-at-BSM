@@ -1,16 +1,7 @@
-Physics at BSM — A.5 Galilean and special relativity — Draft 4
+Physics at BSM — B.1 Thermal energy transfers (Draft 1)
 
-This package is for teacher audit, not published student assessment.
+This is unapproved teacher-review material. Do not upload to the student-facing live question bank until the teacher audit is complete.
 
-Files:
-- a5.json: 25 original IB-style Higher Level Paper 1A-format multiple-choice questions.
-- diagrams/: original PNG figures referenced by diagram fields in a5.json.
+b1.json contains 25 original Paper 1A-style questions. Preserve the three PNG files inside the diagrams/ directory.
 
-Website integration after teacher approval:
-1. Upload a5.json to repository root.
-2. Upload PNGs to the existing diagrams/ directory.
-3. Update app.js DATA_FILES and allowed topics to include A.5.
-4. Update index.html topic selector and total count from 100 to 125.
-5. Test images, answers, and progress before merging into main.
-
-Source benchmarks: teacher-provided A.5 IB multiple-choice exemplar and the Silkstone A.5 question collection. The wording, numerical values, options and diagrams are original.
+This ZIP does not update the existing app.js or index.html; integration should happen via a separate GitHub pull request after approval.
