@@ -7,6 +7,7 @@ const el = id => document.getElementById(id);
 let questions = [];
 let currentId = null;
 let progress = {};
+let topicOptions = [];
 
 function loadProgress() {
   try {
@@ -19,9 +20,34 @@ function save() {
   catch (error) { console.warn("Progress could not be saved", error); }
 }
 function inTopic(q) {
-  return el("topic").value === "all" || q.topic === el("topic").value;
+  const theme = el("theme").value;
+  const topic = el("topic").value;
+  const level = el("level").value;
+  if (theme !== "all" && q.theme !== theme) return false;
+  if (topic !== "all" && q.topic !== topic) return false;
+  // HL course includes the SL core; "extension" isolates additional HL material.
+  if (level === "sl" && q.level !== "SL") return false;
+  if (level === "extension" && q.level !== "HL") return false;
+  return true;
 }
 function topicQuestions() { return questions.filter(inTopic); }
+function updateTopics(resetSelection = false) {
+  const selector = el("topic");
+  const theme = el("theme").value;
+  const previous = resetSelection ? "all" : selector.value;
+  const available = new Set(questions.filter(q => theme === "all" || q.theme === theme).map(q => q.topic));
+  selector.replaceChildren();
+  for (const original of topicOptions) {
+    if (original.value !== "all" && !available.has(original.value)) continue;
+    const option = document.createElement("option");
+    option.value = original.value;
+    option.textContent = original.value === "all"
+      ? `All topics · ${questions.filter(q => theme === "all" || q.theme === theme).length} questions`
+      : original.label;
+    selector.append(option);
+  }
+  selector.value = [...selector.options].some(o => o.value === previous) ? previous : "all";
+}
 function filtered() {
   const section = el("section").value;
   const difficulty = el("difficulty").value;
@@ -60,7 +86,7 @@ function updateStats() {
   el("accuracy").textContent = attempted ? `${Math.round(100 * correct / attempted)}%` : "—";
   el("progressBar").style.width = `${scope.length ? 100 * attempted / scope.length : 0}%`;
   el("completion").textContent = `${attempted} of ${scope.length}`;
-  el("reset").textContent = el("topic").value === "all" ? "Clear all trial progress" : "Clear progress for selected topic";
+  el("reset").textContent = "Clear progress for this selection";
 }
 function showOptionTable(q) {
   el("quiz").querySelectorAll(".option-table").forEach(table => table.remove());
@@ -189,7 +215,15 @@ async function init() {
         throw new Error(`Invalid question data: ${q.id || "unknown"}`);
       }
     }
+    topicOptions = [...el("topic").options].map(o => ({value: o.value, label: o.textContent}));
+    updateTopics();
+    el("theme").addEventListener("change", () => {
+      updateTopics(true); updateSections(); currentId = null; show();
+    });
     el("topic").addEventListener("change", () => {
+      updateSections(); currentId = null; show();
+    });
+    el("level").addEventListener("change", () => {
       updateSections(); currentId = null; show();
     });
     for (const id of ["section", "difficulty", "mode"]) {
@@ -204,7 +238,7 @@ async function init() {
     });
     el("reset").addEventListener("click", () => {
       const scope = topicQuestions();
-      const label = el("topic").value === "all" ? `all ${questions.length} questions` : el("topic").value;
+      const label = `${scope.length} questions in the selected theme, topic and syllabus level`;
       if (!confirm(`Clear answers and bookmarks for ${label} saved on this browser?`)) return;
       for (const q of scope) delete progress[q.id];
       save(); currentId = null; show();

@@ -3,3 +3,8 @@
 .controls select:focus-visible,.option:focus-visible,.nav button:focus-visible,.star:focus-visible{outline:3px solid #6aa5d3;outline-offset:2px}
 .option-table{width:100%;max-width:100%;font-size:.9rem}.option-table td,.option-table th{white-space:normal}
 @media(max-width:530px){.option-table{font-size:.77rem}.option-table td,.option-table th{padding:6px 5px}}
+
+/* Theme and syllabus-level filter groups */
+.filter-heading{color:#647c93;font-weight:800;letter-spacing:.09em;font-size:.72rem;margin:0 0 15px}
+.filter-heading.practice-heading{border-top:1px solid #e1e8ef;padding-top:17px;margin-top:2px}
+.controls select{margin-bottom:15px}
